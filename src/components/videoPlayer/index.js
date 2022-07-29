@@ -22,7 +22,7 @@ const Index = ({route, navigation}) => {
       <Video
         source={{uri: url}}
         resizeMode="cover"
-        repeat={true}
+        // repeat={true}
         style={styles.bgImg}
       />
 
@@ -41,7 +41,6 @@ const Index = ({route, navigation}) => {
             />
             <Text style={tw`text-base ml-3 font-bold text-white`}>Live</Text>
           </View>
-          {/* <View style={{height: '97%'}}></View> */}
         </View>
 
         <View style={[tw`w-full h-60 flex-row justify-between items-end pb-4`]}>
@@ -59,15 +58,15 @@ const Index = ({route, navigation}) => {
           <View>
             <View style={tw`items-center`}>
               <Icon1 name="heart-o" size={23} color="white" />
-              <Text style={tw`text-white font-bold`}>3k</Text>
+              <Text style={tw`text-white font-bold mt-2`}>3k</Text>
             </View>
 
             <TouchableOpacity
               style={tw`items-center mt-4`}
-              onPress={() => navigation.navigate('Comments')}
+              onPress={() => navigation.navigate('Comments', { url: url })}
               >
               <Icon2 name="comment" size={25} color="white" />
-              <Text style={tw`text-white font-bold`}>500</Text>
+              <Text style={tw`text-white font-bold mt-2`}>500</Text>
             </TouchableOpacity>
 
             <View style={tw`items-center mt-4`}>

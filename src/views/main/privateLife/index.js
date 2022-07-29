@@ -1,11 +1,32 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 
+import Home from './Home/index';
+import PostComment from './PostComment/index';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 const Index = () => {
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text style={{color: 'black'}}>Private Live</Text>
-    </View>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="PrivateHome"
+        component={Home}
+        options={{
+          headerShown: true,
+          headerTitle: "Private Life"
+        }}
+      />
+      <Stack.Screen
+        name="PostComment"
+        component={PostComment}
+        options={{
+          headerShown: true,
+          headerTitle: 'Comments',
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 

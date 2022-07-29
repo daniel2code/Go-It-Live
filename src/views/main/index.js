@@ -46,6 +46,8 @@ const Index = () => {
         name="Private"
         component={PrivateLife}
         options={{
+          headerShown: false,
+          headerTitle: 'Private Live',
           tabBarIcon: () => (
             <Icon1 name="shield-lock" color={textColor} size={25} />
           ),
@@ -97,7 +99,6 @@ const Index = () => {
           },
         }}
       />
-
     </Tab.Navigator>
   );
 };

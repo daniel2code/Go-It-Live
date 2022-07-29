@@ -9,7 +9,7 @@ const Index = ({ url }) => {
       <Video
         source={{ uri: url}}
         resizeMode="cover"
-        repeat={true}
+        // repeat={true}
         playInBackground={true}
         style={styles.videoCard} 
       />

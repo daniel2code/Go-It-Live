@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, FlatList, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-import Video from 'react-native-video';
+// import Video from 'react-native-video';
 import VideoCard from '../../../../components/videoCard/index';
 
 const list = [
@@ -24,22 +24,22 @@ const videos = [
     id: 1,
     url: 'https://media.istockphoto.com/videos/energetic-women-breakdancing-on-dance-floor-video-id1084619814',
   },
-  {
-    id: 2,
-    url: 'https://media.istockphoto.com/videos/stacks-of-wood-logs-in-the-mountains-video-id1289220181',
-  },
-  {
-    id: 3,
-    url: 'https://media.istockphoto.com/videos/spring-landscape-at-sunset-video-id1283033291',
-  },
-  {
-    id: 4,
-    url: 'https://media.istockphoto.com/videos/wild-flowers-in-the-national-swamp-reserve-autumn-daytime-smooth-video-id499167048',
-  },
-  {
-    id: 5,
-    url: 'https://media.istockphoto.com/videos/dog-sits-and-neck-on-the-grass-video-id1146419990',
-  },
+  // {
+  //   id: 2,
+  //   url: 'https://media.istockphoto.com/videos/stacks-of-wood-logs-in-the-mountains-video-id1289220181',
+  // },
+  // {
+  //   id: 3,
+  //   url: 'https://media.istockphoto.com/videos/spring-landscape-at-sunset-video-id1283033291',
+  // },
+  // {
+  //   id: 4,
+  //   url: 'https://media.istockphoto.com/videos/wild-flowers-in-the-national-swamp-reserve-autumn-daytime-smooth-video-id499167048',
+  // },
+  // {
+  //   id: 5,
+  //   url: 'https://media.istockphoto.com/videos/dog-sits-and-neck-on-the-grass-video-id1146419990',
+  // },
   //   {
   //     id: 6,
   //     url: 'https://www.istockphoto.com/video/white-artificial-electric-flowers-on-the-branches-of-christmas-trees-gm1292756752-387443537',
