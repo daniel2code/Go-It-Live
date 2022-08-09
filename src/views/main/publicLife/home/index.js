@@ -1,18 +1,44 @@
-import {StyleSheet, Text, View, FlatList, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 
-// import Video from 'react-native-video';
+// import Video from 'react-native-video'
+import tw from 'tailwind-react-native-classnames';
 import VideoCard from '../../../../components/videoCard/index';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const list = [
-  {name: 'video'},
-  {name: 'audio'},
-  {name: 'image'},
-  {name: 'img'},
-  {name: 'vid'},
-  {name: 'view'},
-  {name: 'show'},
-  {name: 'live'},
+  {name: 'video', url: '../../../../assets/bg.mp4'},
+  {name: 'audio', url: '../../../../assets/bg.mp4'},
+  {name: 'image', url: '../../../../assets/bg.mp4'},
+  {name: 'img', url: '../../../../assets/bg.mp4'},
+  {name: 'vid', url: '../../../../assets/bg.mp4'},
+  {name: 'view', url: '../../../../assets/bg.mp4'},
+  {name: 'show', url: '../../../../assets/bg.mp4'},
+  {name: 'live', url: '../../../../assets/bg.mp4'},
+  {name: 'video', url: '../../../../assets/bg.mp4'},
+  {name: 'audio', url: '../../../../assets/bg.mp4'},
+  {name: 'image', url: '../../../../assets/bg.mp4'},
+  {name: 'img', url: '../../../../assets/bg.mp4'},
+  {name: 'vid', url: '../../../../assets/bg.mp4'},
+  {name: 'view', url: '../../../../assets/bg.mp4'},
+  {name: 'show', url: '../../../../assets/bg.mp4'},
+  {name: 'live', url: '../../../../assets/bg.mp4'},
+  {name: 'video', url: '../../../../assets/bg.mp4'},
+  {name: 'audio', url: '../../../../assets/bg.mp4'},
+  {name: 'image', url: '../../../../assets/bg.mp4'},
+  {name: 'img', url: '../../../../assets/bg.mp4'},
+  {name: 'vid', url: '../../../../assets/bg.mp4'},
+  {name: 'view', url: '../../../../assets/bg.mp4'},
+  {name: 'show', url: '../../../../assets/bg.mp4'},
+  {name: 'live', url: '../../../../assets/bg.mp4'},
 ];
 
 // const renderItem = ({item}) => (
@@ -20,10 +46,10 @@ const list = [
 //   );
 
 const videos = [
-  {
-    id: 1,
-    url: 'https://media.istockphoto.com/videos/energetic-women-breakdancing-on-dance-floor-video-id1084619814',
-  },
+  // {
+  //   id: 1,
+  //   url: 'https://media.istockphoto.com/videos/energetic-women-breakdancing-on-dance-floor-video-id1084619814',
+  // },
   // {
   //   id: 2,
   //   url: 'https://media.istockphoto.com/videos/stacks-of-wood-logs-in-the-mountains-video-id1289220181',
@@ -62,21 +88,44 @@ const videos = [
   //   },
 ];
 
-const Index = ({ navigation }) => {
+const windowHeight = Dimensions.get('window').height;
+
+const Index = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
-      <View style={styles.container} >
+      <View style={tw`px-4 w-full mt-2`}>
+        <View
+          style={[
+            tw`w-full flex-row items-center`,
+            {height: 45, backgroundColor: '#d3d3d3', borderRadius: 30},
+          ]}>
+          <Icon name="search1" size={20} color="white" style={tw`px-2`} />
+          <TextInput
+            placeholder="Search"
+            style={tw`ml-1`}
+            placeholderTextColor="white"
+          />
+        </View>
+      </View>
+
+      <View style={styles.container}>
         <FlatList
-          data={videos}
+          numColumns={3}
+          data={list}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity style={styles.videoCard} onPress={()=>navigation.navigate('Player', {item: item})} >
-                <VideoCard url={item.url} />
+              <TouchableOpacity
+                style={styles.videoCard}
+                onPress={() => navigation.navigate('Player', {item: item})}>
+                <VideoCard
+                // url={item.url}
+                />
               </TouchableOpacity>
             );
           }}
           // keyExtractor={item => item.name}
           // numColumns={3}
+          style={[tw`mt-2`, {height: windowHeight - 120}]}
         />
       </View>
       <Text style={{color: 'black'}}>Home Page</Text>
@@ -88,10 +137,10 @@ export default Index;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: '1.25rem',
+    // flex: 1,
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    // gap: '1.25rem',
   },
 
   videoCard: {

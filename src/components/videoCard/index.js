@@ -7,7 +7,8 @@ const Index = ({ url }) => {
   return (
     <>
       <Video
-        source={{ uri: url}}
+        // source={{ uri: url}}
+        source={require('../../assets/bg.mp4')}
         resizeMode="cover"
         // repeat={true}
         playInBackground={true}

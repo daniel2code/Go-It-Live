@@ -60,7 +60,7 @@ const Index = () => {
       />
 
       <Tab.Screen
-        name="GoLive"
+        name="Go It Live"
         component={GoLive}
         options={{
           tabBarIcon: () => (
@@ -91,6 +91,8 @@ const Index = () => {
         name="Notifications"
         component={Notifications}
         options={{
+          headerShown: true,
+          headerTitle: 'Notifications',
           tabBarIcon: () => <Icon1 name="bell" color={textColor} size={25} />,
           tabBarLabelStyle: {
             color: textColor,

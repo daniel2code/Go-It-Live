@@ -1,11 +1,32 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 
+import Home from './home';
+import EditProfile from './editProfile';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 const Index = () => {
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text style={{color: 'black'}}>Profile</Text>
-    </View>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="ProfileHome"
+        component={Home}
+        options={{
+          headerShown: true,
+          headerTitle: "@Pfeelings",
+        }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          headerShown: false,
+          headerTitle: 'Comments',
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 
