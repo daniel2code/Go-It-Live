@@ -7,7 +7,7 @@ import Icon1 from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 import Icon3 from 'react-native-vector-icons/Feather';
 
-const Index = ({ navigation }) => {
+const Index = ({navigation, openModal}) => {
   return (
     <View style={styles.container}>
       <Video
@@ -30,7 +30,14 @@ const Index = ({ navigation }) => {
             </Text>
           </View>
 
-          <Icon3 size={18} name="more-vertical" color="white" />
+          <TouchableOpacity onPress={openModal} style={tw`w-4`}>
+            <Icon3
+              size={18}
+              name="more-vertical"
+              color="white"
+              
+            />
+          </TouchableOpacity>
         </View>
       </View>
 

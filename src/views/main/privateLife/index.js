@@ -3,6 +3,7 @@ import React from 'react';
 
 import Home from './Home/index';
 import PostComment from './PostComment/index';
+import VideoCall from '../videoCall/index';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Index = () => {
@@ -15,7 +16,7 @@ const Index = () => {
         component={Home}
         options={{
           headerShown: true,
-          headerTitle: "Private Life"
+          headerTitle: 'Private Life',
         }}
       />
       <Stack.Screen
@@ -26,6 +27,8 @@ const Index = () => {
           headerTitle: 'Comments',
         }}
       />
+
+      <Stack.Screen name="VideoCall" component={VideoCall} />
     </Stack.Navigator>
   );
 };

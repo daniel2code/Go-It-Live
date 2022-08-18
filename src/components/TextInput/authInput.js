@@ -1,6 +1,5 @@
 import {StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
-import { keyboardType } from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
 
 const Input = ({
   placeholder,

@@ -3,7 +3,11 @@ import React from 'react';
 
 import Home from './home';
 import EditProfile from './editProfile';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Settings from './settings/index';
+import Wallet from './wallet/index';
+import Withdrawal from './withdraw/index';
+import Deposit from './deposit/index';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Index = () => {
   const Stack = createNativeStackNavigator();
@@ -14,8 +18,8 @@ const Index = () => {
         name="ProfileHome"
         component={Home}
         options={{
-          headerShown: true,
-          headerTitle: "@Pfeelings",
+          headerShown: false,
+          headerTitle: '@Pfeelings',
         }}
       />
       <Stack.Screen
@@ -24,6 +28,42 @@ const Index = () => {
         options={{
           headerShown: false,
           headerTitle: 'Comments',
+        }}
+      />
+
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerShown: false,
+          headerTitle: 'Settings',
+        }}
+      />
+
+      <Stack.Screen
+        name="Wallet"
+        component={Wallet}
+        options={{
+          headerShown: false,
+          headerTitle: 'Wallet',
+        }}
+      />
+
+      <Stack.Screen
+        name="Withdrawal"
+        component={Withdrawal}
+        options={{
+          headerShown: false,
+          headerTitle: 'Withdrawal',
+        }}
+      />
+
+      <Stack.Screen
+        name="Deposit"
+        component={Deposit}
+        options={{
+          headerShown: false,
+          headerTitle: 'Deposit',
         }}
       />
     </Stack.Navigator>
