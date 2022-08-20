@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React, { useEffect } from 'react';
 import * as Animatable from 'react-native-animatable';
+import { primaryColor } from "../../helper/theme"
 
 const Index = ({ navigation }) => {
 
@@ -51,7 +52,7 @@ export default Index;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'pink',
+    backgroundColor: primaryColor,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -80,6 +81,8 @@ const styles = StyleSheet.create({
     fontSize: 27,
     paddingHorizontal: 3,
     fontWeight: '700',
+    color: "white",
+    textTransform: "uppercase",
     fontStyle: 'italic',
   },
 
@@ -88,5 +91,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     fontWeight: '700',
     fontStyle: 'italic',
+    color: "white",
+    textTransform: "uppercase",
   },
 });

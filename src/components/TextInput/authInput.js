@@ -1,5 +1,6 @@
 import {StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
+import { editable } from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
 
 const Input = ({
   placeholder,
@@ -10,6 +11,7 @@ const Input = ({
   icon2,
   secureText,
   keyboardType,
+  editable,
 }) => {
   return (
     <View style={[styles.inputBox, style]}>
@@ -22,6 +24,7 @@ const Input = ({
         keyboardType={keyboardType || "default"}
         value={value}
         style={[styles.input, icon1 ? {width: '85%'} : {width: '92%'}]}
+        editable={editable}
       />
       <View>{icon2}</View>
     </View>
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
   
   input: {
     height: 40,
-    color: "#000",
-    fontSize: 12,
+    color: "#fff",
+    fontSize: 14,
   },
 });

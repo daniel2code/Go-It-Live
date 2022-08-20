@@ -1,0 +1,80 @@
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect} from 'react';
+
+import Wrapper from '../../../components/onboardWrapper/';
+import {BackPressHandler} from '../../../helper/backHandler';
+import tw from 'tailwind-react-native-classnames';
+import {showToast} from '../../../components/toast/index';
+import {primaryColor} from '../../../helper/theme';
+import Button from '../../../components/button/index';
+import Clipboard from '@react-native-clipboard/clipboard';
+
+const Index = ({navigation}) => {
+  useEffect(() => {
+    BackPressHandler();
+  }, []);
+
+  const copyToClipboard = () => {
+    Clipboard.setString('256473890298');
+    showToast('success', 'Text copied to clipboard');
+  };
+
+  return (
+    <Wrapper hideIcon={true}>
+      <View style={[tw` justify-between h-full`]}>
+        <View>
+          <Text style={tw`text-3xl font-bold mt-14 text-white`}>
+            Serial Code
+          </Text>
+
+          <Text style={tw` my-3`}>Copy your serial code and keep it safe</Text>
+
+          <View
+            style={[
+              tw`justify-between items-center flex-row relative mt-6 pl-3`,
+              styles.box,
+            ]}>
+            <Text style={tw`text-black`}>256473890298</Text>
+            <TouchableOpacity style={styles.clipBtn} onPress={copyToClipboard}>
+              <Text style={tw`text-white font-bold`}>Copy </Text>
+            </TouchableOpacity>
+          </View>
+
+          <Button
+            text="Proceed to app"
+            btnStyle={styles.btn}
+            onPress={() => navigation.navigate('Dashboard')}
+          />
+        </View>
+
+        <View style={tw`items-center flex-row`}></View>
+      </View>
+    </Wrapper>
+  );
+};
+
+export default Index;
+
+const styles = StyleSheet.create({
+  box: {
+    height: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 10,
+  },
+
+  btn: {
+    backgroundColor: primaryColor,
+    marginTop: 20,
+    borderRadius: 50,
+  },
+
+  clipBtn: {
+    backgroundColor: primaryColor,
+    height: 45,
+    width: 85,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginRight: 2,
+  },
+});

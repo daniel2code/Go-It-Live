@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import tw from 'tailwind-react-native-classnames';
 
 import Wrapper from '../../../components/onboardWrapper/index';
@@ -8,42 +8,158 @@ import Button from '../../../components/button/index';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
-import Icon2 from "react-native-vector-icons/Entypo"
+import Icon2 from 'react-native-vector-icons/Entypo';
+import {registerService} from '../../../api/services/authServices';
+import {useFormik} from 'formik';
+import {showToast} from '../../../components/toast/index';
+import {deviceInfo} from '../../../helper/deviceInfo';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {BackPressHandler} from '../../../helper/backHandler';
+import {signUpSchema} from '../../../helper/validations';
+import {primaryColor} from '../../../helper/theme';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-const Index = ({ navigation }) => {
+const Index = ({navigation, route}) => {
+  const {phone} = route.params;
+  const [loading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+
+  const [items, setItems] = useState([
+    {label: 'Business', value: 'business'},
+    {label: 'Student', value: 'student'},
+  ]);
+
+  useEffect(() => {
+    BackPressHandler();
+  }, []);
+
+  const {handleChange, handleSubmit, values, errors} = useFormik({
+    initialValues: {
+      phone: phone,
+      email: '',
+      account_type: '',
+      full_name: '',
+      username: '',
+    },
+    validationSchema: signUpSchema,
+    onSubmit: async values => {
+      setIsLoading(true);
+      console.log({...deviceInfo, ...values});
+      try {
+        const response = await registerService({...deviceInfo, ...values});
+        console.log(response.data);
+        setIsLoading(false);
+        navigation.navigate('clipboard');
+      } catch (error) {
+        setIsLoading(false);
+        if (error) {
+          console.log(error, error?.response?.msg);
+          navigation.navigate('clipboard');
+          return showToast(
+            'error',
+            error?.response?.data || 'Something went wrong please try again',
+          );
+          // setToastMessage({type: 'error', text: error?.response?.data});
+        } else {
+          showToast(
+            'error',
+            error?.response?.data || 'Something went wrong please try again',
+          );
+        }
+      }
+    },
+  });
+
   return (
-    <Wrapper navigation={navigation}>
+    <Wrapper navigation={navigation} hideIcon={true}>
+      <Spinner
+        visible={loading}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+        overlayColor="rgba(0, 0, 0, 0.7)"
+      />
       <View style={[tw` justify-between h-full`]}>
         <View>
           <Text style={tw`text-3xl pl-1 font-bold mt-14 text-white`}>
-            Sign Up
+            Create Account
           </Text>
           <View style={tw`mt-5`}>
             <TextInput
               placeholder="Full Name"
               icon1={<Icon2 color="#fff" name="user" size={25} />}
+              onChange={handleChange('full_name')}
             />
+            {errors.full_name && (
+              <Text style={styles.textErr}> {errors && errors.full_name}</Text>
+            )}
+
             <TextInput
               placeholder="Email"
               icon1={<Icon color="#fff" name="email" size={25} />}
+              onChange={handleChange('email')}
+            />
+            {errors.email && (
+              <Text style={styles.textErr}> {errors && errors.email}</Text>
+            )}
+
+            <TextInput
+              placeholder="Phone"
+              icon1={<Icon color="#fff" name="email" size={25} />}
+              // onChange={handleChange('phone')}
+              value={phone}
+              style={{color: 'white'}}
+              editable={false}
             />
 
             <TextInput
               placeholder="User Name"
               icon1={<Icon1 color="#fff" name="user" size={25} />}
+              onChange={handleChange('username')}
             />
+            {errors.username && (
+              <Text style={styles.textErr}> {errors && errors.username}</Text>
+            )}
 
-            <TextInput
+            {/* <TextInput
               placeholder="Password"
               icon1={<Icon1 color="#fff" name="lock" size={25} />}
               icon2={<Icon color="#fff" name="remove-red-eye" size={25} />}
-            />
+              onChange={handleChange('full_name')}
+            /> */}
 
-            <Button text="Sign Up" btnStyle={styles.btn} onPress={()=>navigation.navigate("redeem")} />
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              onChangeValue={handleChange('account_type')}
+              containerStyle={styles.selectStyle}
+              style={{
+                backgroundColor: 'transparent',
+                borderColor: 'transparent',
+                color: 'black',
+              }}
+              textStyle={{color: 'black'}}
+            />
+            {errors.account_type && (
+              <Text style={styles.textErr}>
+                {' '}
+                {errors && errors.account_type}
+              </Text>
+            )}
+
+            <Button
+              text="Sign Up"
+              btnStyle={styles.btn}
+              onPress={handleSubmit}
+            />
 
             <Text style={tw`my-4 text-white pl-1`}>
               Have an account?{' '}
-              <Text style={[tw`font-bold`, {color: 'pink'}]}>Login</Text>
+              <Text style={[tw`font-bold`, {color: primaryColor}]}>Login</Text>
             </Text>
           </View>
         </View>
@@ -61,8 +177,25 @@ export default Index;
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: 'pink',
-    marginTop: 50,
+    backgroundColor: primaryColor,
+    marginTop: 70,
     borderRadius: 50,
+  },
+
+  selectStyle: {
+    width: '100%',
+    height: 45,
+    borderRadius: 50,
+    paddingHorizontal: 13,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    marginTop: 17,
+    color: 'black',
+    position: 'relative',
+    zIndex: 2,
+  },
+
+  textErr: {
+    color: 'red',
+    fontSize: 12,
   },
 });
