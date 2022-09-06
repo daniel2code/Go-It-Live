@@ -41,6 +41,8 @@ const Index = ({navigation, route}) => {
       account_type: '',
       full_name: '',
       username: '',
+      country: 'Nigeria',
+      state: 'Abia',
     },
     validationSchema: signUpSchema,
     onSubmit: async values => {

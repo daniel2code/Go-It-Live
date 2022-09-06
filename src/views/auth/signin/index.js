@@ -8,8 +8,9 @@ import Button from '../../../components/button/index';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
+import {primaryColor} from '../../../helper/theme';
 
-const Index = ({ navigation }) => {
+const Index = ({navigation}) => {
   return (
     <Wrapper navigation={navigation}>
       <View style={[tw` justify-between h-full`]}>
@@ -29,11 +30,18 @@ const Index = ({ navigation }) => {
               icon2={<Icon color="#fff" name="remove-red-eye" size={25} />}
             />
 
-            <Button text="Login" btnStyle={styles.btn} onPress={()=>navigation.navigate("signup")} />
+            <Button
+              text="Login"
+              btnStyle={styles.btn}
+              onPress={() => navigation.navigate('dashboard')}
+            />
 
             <Text style={tw`my-4 text-white pl-1`}>
               Don't have an account?{' '}
-              <Text style={[tw`font-bold`, {color: 'pink'}]}> Sign Up</Text>
+              <Text style={[tw`font-bold`, {color: primaryColor}]}>
+                {' '}
+                Sign Up
+              </Text>
             </Text>
           </View>
         </View>
@@ -51,7 +59,7 @@ export default Index;
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: 'pink',
+    backgroundColor: primaryColor,
     marginTop: 50,
     borderRadius: 50,
   },

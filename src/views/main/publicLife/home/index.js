@@ -30,15 +30,15 @@ const list = [
   {name: 'vid', url: '../../../../assets/bg.mp4'},
   {name: 'view', url: '../../../../assets/bg.mp4'},
   {name: 'show', url: '../../../../assets/bg.mp4'},
-  {name: 'live', url: '../../../../assets/bg.mp4'},
-  {name: 'video', url: '../../../../assets/bg.mp4'},
-  {name: 'audio', url: '../../../../assets/bg.mp4'},
-  {name: 'image', url: '../../../../assets/bg.mp4'},
-  {name: 'img', url: '../../../../assets/bg.mp4'},
-  {name: 'vid', url: '../../../../assets/bg.mp4'},
-  {name: 'view', url: '../../../../assets/bg.mp4'},
-  {name: 'show', url: '../../../../assets/bg.mp4'},
-  {name: 'live', url: '../../../../assets/bg.mp4'},
+  // {name: 'live', url: '../../../../assets/bg.mp4'},
+  // {name: 'video', url: '../../../../assets/bg.mp4'},
+  // {name: 'audio', url: '../../../../assets/bg.mp4'},
+  // {name: 'image', url: '../../../../assets/bg.mp4'},
+  // {name: 'img', url: '../../../../assets/bg.mp4'},
+  // {name: 'vid', url: '../../../../assets/bg.mp4'},
+  // {name: 'view', url: '../../../../assets/bg.mp4'},
+  // {name: 'show', url: '../../../../assets/bg.mp4'},
+  // {name: 'live', url: '../../../../assets/bg.mp4'},
 ];
 
 // const renderItem = ({item}) => (
@@ -117,9 +117,9 @@ const Index = ({navigation}) => {
               <TouchableOpacity
                 style={styles.videoCard}
                 onPress={() => navigation.navigate('Player', {item: item})}>
-                <VideoCard
+                {/* <VideoCard
                 // url={item.url}
-                />
+                /> */}
               </TouchableOpacity>
             );
           }}

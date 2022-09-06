@@ -14,6 +14,7 @@ import Modal from '../../../../components/modal/index';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/Ionicons';
 import {shadowProp} from '../../../../helper/theme';
+import {primaryColor} from '../../../../helper/theme';
 
 const list = [
   {name: 'video', url: '../../../../assets/bg.mp4'},
@@ -117,7 +118,7 @@ const Index = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        <View style={[tw`flex-1 mt-2`]}>
+        {/* <View style={[tw`flex-1 mt-2`]}>
           <FlatList
             numColumns={3}
             data={list}
@@ -125,13 +126,14 @@ const Index = ({navigation}) => {
               return (
                 <TouchableOpacity
                   style={styles.videoCard}
-                  onPress={() => navigation.navigate('Player', {item: item})}>
+                  // onPress={() => navigation.navigate('Player', {item: item})}
+                  >
                   <VideoCard />
                 </TouchableOpacity>
               );
             }}
           />
-        </View>
+        </View> */}
       </View>
 
       <Modal open={openModal} close={handleChangeModal}>
@@ -164,11 +166,12 @@ const Index = ({navigation}) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[tw`w-full flex-row items-center mt-5 px-4`, styles.box]}>
+          style={[tw`w-full flex-row items-center mt-5 px-4`, styles.box]}
+          onPress={() => navigation.navigate('privateCall')}>
           <Icon1 name="md-timer-outline" size={30} color="#000" />
 
           <Text style={[tw` ml-4`, {color: '#000', fontSize: 17}]}>
-            Your activity
+            Go private live
           </Text>
         </TouchableOpacity>
       </Modal>
@@ -211,7 +214,7 @@ const styles = StyleSheet.create({
   },
 
   editBtn: {
-    backgroundColor: 'pink',
+    backgroundColor: primaryColor,
     borderRadius: 20,
   },
 

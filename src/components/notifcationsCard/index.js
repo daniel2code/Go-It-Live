@@ -2,6 +2,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 import tw from 'tailwind-react-native-classnames';
+import {primaryColor} from '../../helper/theme';
 
 const Index = () => {
   return (
@@ -21,7 +22,6 @@ const Index = () => {
           <Text style={tw`text-white font-bold text-xs`}>Care Back</Text>
         </TouchableOpacity>
       </View>
-
     </View>
   );
 };
@@ -30,7 +30,7 @@ export default Index;
 
 const styles = StyleSheet.create({
   careBtn: {
-backgroundColor: "pink",
+    backgroundColor: primaryColor,
     borderRadius: 20,
   },
 

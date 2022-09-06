@@ -97,6 +97,7 @@ const Index = ({navigation}) => {
           return (
             <View style={[tw`w-full mt-2`]}>
               <PostViewer navigation={navigation} openModal={handleOpenModal} />
+              {/* <Text style={{color: "black"}} >testing=======</Text> */}
             </View>
           );
         }}

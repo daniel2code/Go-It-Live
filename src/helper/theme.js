@@ -3,6 +3,6 @@ const shadowProp = {
   shadowColor: '#000',
 };
 
-const primaryColor = '#076df3';
+const primaryColor = '#9E005C';
 
 export {shadowProp, primaryColor};

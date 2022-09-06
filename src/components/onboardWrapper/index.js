@@ -1,5 +1,5 @@
 import {View, StyleSheet, Dimensions} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import tw from 'tailwind-react-native-classnames';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,10 +8,6 @@ import {ImageSlider} from 'react-native-image-slider-banner';
 // import Video from 'react-native-video';
 
 const Index = ({children, navigation, hideIcon}) => {
-  const [images] = useState([
-    require('../../assets/img1.jpg'),
-    require('../../assets/img2.jpg'),
-  ]);
 
   const height = Dimensions.get('window').height;
 

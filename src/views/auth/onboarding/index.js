@@ -12,7 +12,8 @@ import {introSchema} from '../../../helper/validations';
 import {showToast} from '../../../components/toast/index';
 import PhoneInput from 'react-native-phone-number-input';
 import {BackPressHandler} from '../../../helper/backHandler';
-import { primaryColor } from "../../../helper/theme"
+import {primaryColor} from '../../../helper/theme';
+import * as Keychain from 'react-native-keychain';
 
 const Index = ({navigation}) => {
   const [loading, setIsLoading] = useState(false);
@@ -27,11 +28,18 @@ const Index = ({navigation}) => {
     validationSchema: introSchema,
     onSubmit: async values => {
       setIsLoading(true);
-      console.log({...deviceInfo, ...values});
       try {
         const response = await loginInService({...deviceInfo, ...values});
         console.log(response.data);
         console.log(response?.data?.pin);
+        console.log('This is the real token', response?.data?.token);
+        const token = 'accessToken';
+
+        await Keychain.resetGenericPassword();
+
+        // Store the credentials
+        await Keychain.setGenericPassword(token, response?.data?.token);
+
         setIsLoading(false);
         navigation.navigate('otp', {
           phone: values.phone,
@@ -61,7 +69,7 @@ const Index = ({navigation}) => {
       <Wrapper hideIcon={true}>
         <Spinner
           visible={loading}
-          textContent={'Loading...'}
+          textContent={'Verifying...'}
           textStyle={{color: 'white'}}
           overlayColor="rgba(0, 0, 0, 0.7)"
         />

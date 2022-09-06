@@ -14,6 +14,7 @@ import Icon1 from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/Fontisto';
 import tw from 'tailwind-react-native-classnames';
+import {primaryColor} from '../../../../helper/theme';
 
 const Index = ({navigation}) => {
   return (
@@ -51,34 +52,27 @@ const Index = ({navigation}) => {
         <View
           style={[
             tw`mt-10 rounded py-5 justify-around flex-row`,
-            {backgroundColor: 'pink'},
+            {backgroundColor: primaryColor},
           ]}>
           <Pressable
             style={[tw`justify-center items-center`]}
             onPress={() => navigation.navigate('Deposit')}>
             <Icon3 name="arrow-swap" size={28} color="#fff" />
-            <Text style={[tw`text-sm text-white font-semibold`]}>
-              Deposit
-            </Text>
+            <Text style={[tw`text-sm text-white font-semibold`]}>Deposit</Text>
           </Pressable>
 
           <Pressable
             style={[tw`justify-center items-center`]}
             onPress={() => navigation.navigate('Withdrawal')}>
             <Icon1 name="creditcard" size={28} color="#fff" />
-            <Text style={[tw`text-sm text-white font-semibold`]}>
-              Withdraw
-            </Text>
+            <Text style={[tw`text-sm text-white font-semibold`]}>Withdraw</Text>
           </Pressable>
 
-          <Pressable style={[tw`justify-center items-center`]}>
+          <Pressable
+            style={[tw`justify-center items-center`]}
+            onPress={() => navigation.navigate('Income')}>
             <Icon2 name="money" size={28} color="#fff" />
             <Text style={[tw`text-sm text-white font-semibold`]}>Income</Text>
-          </Pressable>
-
-          <Pressable style={[tw`justify-center items-center`]}>
-            <Icon1 name="creditcard" size={28} color="#fff" />
-            <Text style={[tw`text-sm text-white font-semibold`]}>Card</Text>
           </Pressable>
         </View>
 

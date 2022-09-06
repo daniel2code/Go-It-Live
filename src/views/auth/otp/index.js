@@ -13,6 +13,7 @@ import {BackPressHandler} from '../../../helper/backHandler';
 import {deviceInfo} from '../../../helper/deviceInfo';
 import {primaryColor} from '../../../helper/theme';
 
+
 const Index = ({route, navigation}) => {
   const {phone, pin} = route.params;
   const [loading, setIsLoading] = useState(false);

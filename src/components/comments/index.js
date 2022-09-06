@@ -13,8 +13,8 @@ const Index = () => {
           style={[tw`w-9 h-9`, styles.pImg]}
         />
         <View style={tw`flex-1 px-3`}>
-          <Text style={tw`text-white font-bold`}>Daniel Emerald</Text>
-          <Text style={[tw`mt-2 text-xs`, {color: 'white'}]}>
+          <Text style={tw`text-black font-bold`}>Daniel Emerald</Text>
+          <Text style={[tw`mt-2 text-xs`, {color: 'black'}]}>
             Upgrading this package often requires the font files linked to your
             projects to be updated as well. If the automatic linking works for
             you, running this again should update the fonts.

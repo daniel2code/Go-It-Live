@@ -10,11 +10,14 @@ const Index = () => {
   const Stack = createNativeStackNavigator();
 
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Public-Home" component={Home} />
-      <Stack.Screen name='Player' component={VideoPlayer} />
-      <Stack.Screen name='Comments' component={Comments} />
-    </Stack.Navigator>
+    <View>
+      <Text>jhefek</Text>
+    </View>
+    // <Stack.Navigator initialRouteName='Public Home' screenOptions={{headerShown: false}}>
+    //   <Stack.Screen name="Public-Home" component={Home} />
+    //   <Stack.Screen name='Player' component={VideoPlayer} />
+    //   <Stack.Screen name='Comments' component={Comments} />
+    // </Stack.Navigator>
   );
 };
 

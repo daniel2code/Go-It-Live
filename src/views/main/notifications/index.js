@@ -3,6 +3,8 @@ import React from 'react';
 
 import tw from 'tailwind-react-native-classnames';
 import Notifications from '../../../components/notifcationsCard/index';
+import {useQuery} from 'react-query';
+import {fetchNotifications} from '../../../api/services/userServices';
 
 const List = [
   {name: 'video', url: '../../../../assets/bg.mp4'},
@@ -18,13 +20,14 @@ const List = [
   {name: 'image', url: '../../../../assets/bg.mp4'},
   {name: 'img', url: '../../../../assets/bg.mp4'},
   {name: 'vid', url: '../../../../assets/bg.mp4'},
-
 ];
 
 const Index = () => {
+  const {data, isLoading, isError, error} = useQuery('notifications', fetchNotifications);
+
   const windowHeight = Dimensions.get('window').height;
   return (
-    <View style={[tw`flex-1 px-5`, {backgroundColor: "white"}]}>
+    <View style={[tw`flex-1 px-5`, {backgroundColor: 'white'}]}>
       <FlatList
         numColumns={1}
         data={List}
@@ -35,7 +38,6 @@ const Index = () => {
             </View>
           );
         }}
-    
         style={[tw`mt-2`, {height: windowHeight - 120}]}
       />
     </View>

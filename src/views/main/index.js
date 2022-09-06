@@ -1,14 +1,17 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {GetColor} from '../../store/slices/colorSlice';
 
-import Profile from './profile';
+import Profile from './profile/profile/index';
 import Notifications from './notifications';
-import PublicLive from './publicLife';
-import PrivateLife from './privateLife';
+import PublicLive from './publicLife/home/index';
+import PrivateLife from './privateLife/Home/index';
 import GoLive from './goLive';
-import VideoPlayer from '../../components/videoPlayer/index';
+// import VideoPlayer from '../../components/videoPlayer/index';
+import {useQuery} from 'react-query';
+import {fetchUser} from '../../api/services/userServices';
+import * as Keychain from 'react-native-keychain';
 
 import Icon from 'react-native-vector-icons/Feather';
 import Icon1 from 'react-native-vector-icons/Octicons';
@@ -18,9 +21,15 @@ const Tab = createBottomTabNavigator();
 
 const Index = () => {
   const {primaryColor, textColor} = GetColor();
+  const {data, isLoading, isError, error} = useQuery('userData', fetchUser);
+
+  console.log(data);
+  console.log(isLoading);
+  console.log(error);
 
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {

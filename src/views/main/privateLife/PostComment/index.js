@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 
 import tw from 'tailwind-react-native-classnames';
@@ -7,7 +14,7 @@ import Button from '../../../../components/button/index';
 
 const Index = () => {
   return (
-    <View style={[tw``, {flex: 1, backgroundColor: 'black'}]}>
+    <View style={[tw``, {flex: 1, backgroundColor: 'white'}]}>
       <View style={[tw`flex-1 px-3`]}>
         <Comments />
         <Comments />
@@ -16,7 +23,7 @@ const Index = () => {
       <View
         style={[
           tw`mb-14 flex-row justify-between items-center px-3`,
-          {height: 60, backgroundColor: '#6a6c6d'},
+          {height: 60, borderColor: 'gray', borderWidth: 1},
         ]}>
         <View style={tw`w-full flex-row justify-between items-center`}>
           <Image
@@ -24,10 +31,15 @@ const Index = () => {
             style={[tw`w-9 h-9`, styles.pImg]}
           />
           <View style={tw`flex-1 px-3`}>
-            <TextInput placeholder="Add a comment" />
+            <TextInput
+              placeholder="Add a comment"
+              placeholderTextColor="gray"
+            />
           </View>
 
-          <Button text="Post" btnStyle={styles.btn} textStyle={tw`text-xs`} />
+          <TouchableOpacity style={[tw`items-center justify-center `, styles.btn]}>
+            <Text style={[tw`text-xs font-semibold`, {color: "black"}]}>Post</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -45,7 +57,6 @@ const styles = StyleSheet.create({
 
   btn: {
     width: 60,
-    elevation: 1,
 
     height: 35,
   },

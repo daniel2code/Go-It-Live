@@ -11,7 +11,7 @@ const Index = ({ url }) => {
         source={require('../../assets/bg.mp4')}
         resizeMode="cover"
         // repeat={true}
-        playInBackground={true}
+        // playInBackground={true}
         style={styles.videoCard} 
       />
       {/* <Text>{name}</Text> */}

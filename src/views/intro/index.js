@@ -9,6 +9,8 @@ const Index = ({ navigation }) => {
      setTimeout(()=>{
       navigation.navigate("onboard")
      }, 6000)
+
+
   }, [])
 
   return (
@@ -23,7 +25,7 @@ const Index = ({ navigation }) => {
           delay={1000}
           style={styles.partOne}>
           <View style={styles.line} />
-          <Text style={styles.introText1}>Go It Live &</Text>
+          <Text style={styles.introText1}>Go It Live </Text>
           <View style={styles.line} />
         </Animatable.View>
 
@@ -38,7 +40,7 @@ const Index = ({ navigation }) => {
       </View>
 
       <Animatable.Image
-        source={require('../../assets/logo.png')}
+        source={require('../../assets/logo1.png')}
         style={styles.logo}
         animation="pulse"
         easing="ease-out"
@@ -60,6 +62,8 @@ const styles = StyleSheet.create({
   logo: {
     width: 110,
     height: 110,
+    backgroundColor: "white",
+    borderRadius: 60,
   },
 
   textBox: {
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
   },
 
   introText2: {
-    fontSize: 40,
+    fontSize: 37,
     paddingHorizontal: 5,
     fontWeight: '700',
     fontStyle: 'italic',

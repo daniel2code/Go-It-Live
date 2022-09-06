@@ -10,12 +10,13 @@ import Icon3 from 'react-native-vector-icons/Feather';
 const Index = ({navigation, openModal}) => {
   return (
     <View style={styles.container}>
-      <Video
+      {/* <Video
         source={require('../../assets/bg.mp4')}
         resizeMode="cover"
-        repeat={true}
+        // repeat={true}
+        playInBackground={false}
         style={styles.bgImg}
-      />
+      /> */}
       <View style={[tw`p-3 flex-1 absolute w-full h-full`]}>
         <View style={tw`w-full flex-row justify-between items-start`}>
           <Image

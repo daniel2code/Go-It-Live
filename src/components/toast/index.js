@@ -6,6 +6,7 @@ const showToast = (type, text) => {
       // text1: 'Hello',
       text2: text,
       visibilityTime: 6000,
+      
     });
   };
 

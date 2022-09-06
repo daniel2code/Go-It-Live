@@ -1,22 +1,30 @@
 import axios from 'axios';
+import * as Keychain from 'react-native-keychain';
 
 export const instance = axios.create({
-  baseURL: "https://go-it-live.herokuapp.com/api/v1/user",
+  baseURL: 'https://go-it-live.herokuapp.com/api/v1/user',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 // instance.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("token");
+//   async config => {
+//     // await Keychain.resetGenericPassword();
+//     const credentials = await Keychain.getGenericPassword();
+
+//     console.log('this is request token', credentials.password);
+
 //     //   console.log(token)
-//     if (token) {
-//       config.headers["authorization"] = `Token ${token}`;
+//     if (credentials.password) {
+//       config.headers['Authorization'] = `Bearer ${credentials.password}`;
+//       console.log(`Authorization: Bearer ${credentials.password}`);
+//     } else {
+//       console.log("didn't fetch your password");
 //     }
 //     return config;
 //   },
-//   (error) => {
+//   error => {
 //     Promise.reject(error);
-//   }
+//   },
 // );

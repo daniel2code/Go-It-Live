@@ -8,18 +8,18 @@ import tw from 'tailwind-react-native-classnames';
 import Comments from '../../../../components/comments/index';
 
 const Index = ({navigation, route}) => {
-  // const { url } = route.params;
+  const { url } = route.params;
 
   return (
     <View style={tw`flex-1 `}>
       <View style={[tw``, {backgroundColor: 'black', height: '36%'}]}>
         <View style={[tw``, {height: '90%'}]}>
-          {/* <Video
+          <Video
             source={{uri: url && url}}
             resizeMode="cover"
             // repeat={true}
             style={styles.bgImg}
-          /> */}
+          />
         </View>
 
         <View style={tw`pl-3 flex-row items-center`}>
@@ -34,7 +34,7 @@ const Index = ({navigation, route}) => {
         </View>
       </View>
 
-      <View style={[tw`flex-1 p-3`, {backgroundColor: '#06080F'}]}>
+      <View style={[tw`flex-1 p-3`, {backgroundColor: 'white'}]}>
         <View style={tw`w-full`}>
           <Comments />
           <Comments />

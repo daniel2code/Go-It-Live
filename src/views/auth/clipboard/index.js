@@ -27,7 +27,14 @@ const Index = ({navigation}) => {
             Serial Code
           </Text>
 
-          <Text style={tw` my-3`}>Copy your serial code and keep it safe</Text>
+          <Text style={tw` text-white my-3`}>
+            Your serial code helps you use your account in another device, copy
+            it and keep it safe.
+          </Text>
+          <Text style={tw`text-white`}>
+            Do not share this code with anyone and no one from Go-It-Live will
+            ask you.
+          </Text>
 
           <View
             style={[
@@ -43,7 +50,7 @@ const Index = ({navigation}) => {
           <Button
             text="Proceed to app"
             btnStyle={styles.btn}
-            onPress={() => navigation.navigate('Dashboard')}
+            onPress={() => navigation.navigate('dashboard')}
           />
         </View>
 
