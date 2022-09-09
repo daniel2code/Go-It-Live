@@ -15,10 +15,24 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/Fontisto';
 import tw from 'tailwind-react-native-classnames';
 import {primaryColor} from '../../../../helper/theme';
+import {fetchUser} from '../../../../api/services/userServices';
+import {useQuery} from 'react-query';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const Index = ({navigation}) => {
+  const {data, isLoading, isError, error} = useQuery('User', fetchUser);
+
+  console.log(data?.data?.user?.fund)
+  console.log(data)
+
   return (
     <View style={[tw`flex-1`]}>
+       <Spinner
+        visible={isLoading}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+        overlayColor="rgba(0, 0, 0, 0.7)"
+      />
       <View
         style={[
           tw`h-14 w-full flex-row  items-center px-4`,
@@ -39,7 +53,7 @@ const Index = ({navigation}) => {
       <View style={[tw`px-4`]}>
         <View style={[tw`justify-between items-center flex-row w-full mt-7`]}>
           <View>
-            <Text style={[tw`text-2xl font-bold text-black`]}>₦20,000</Text>
+            <Text style={[tw`text-2xl font-bold text-black`]}>₦{data?.data?.user?.fund}</Text>
             <Text style={[tw`text-black font-semibold`]}>My balance</Text>
           </View>
 

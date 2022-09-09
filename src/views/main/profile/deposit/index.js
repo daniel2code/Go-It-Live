@@ -14,29 +14,58 @@ import tw from 'tailwind-react-native-classnames';
 import {primaryColor} from '../../../../helper/theme';
 import {PayWithFlutterwave} from 'flutterwave-react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-
-const generateTransactionRef = length => {
-  var result = '';
-  var characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return `flw_tx_ref_${result}`;
-};
-
-const handleOnRedirect = () => {
-  console.log('sadi');
-};
+import {FundWallet} from '../../../../api/services/userServices';
+import {showToast} from '../../../../components/toast/index';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const Index = ({navigation}) => {
   const [amt, setAmount] = useState(null);
+  const [loading, setIsLoading] = useState(false);
 
   const height = Dimensions.get('window').height;
 
+  const generateTransactionRef = length => {
+    var result = '';
+    var characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return `flw_tx_ref_${result}`;
+  };
+
+  const handleOnRedirect = async e => {
+    console.log(e);
+    console.log(e?.transaction_id);
+
+    setIsLoading(true);
+
+    try {
+      const response = await FundWallet(e?.transaction_id);
+      console.log(response);
+      setIsLoading(false);
+      navigation.navigate('Wallet');
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      if (error) {
+        return showToast('error', 'Something went wrong please try again');
+        // setToastMessage({type: 'error', text: error?.response?.data});
+      } else {
+        showToast('error', 'Network Error');
+      }
+    }
+  };
+
   return (
     <View style={[tw`flex-1`]}>
+      <Spinner
+        visible={loading}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+        overlayColor="rgba(0, 0, 0, 0.7)"
+      />
       <View
         style={[
           tw`h-14 w-full flex-row  items-center px-4`,
@@ -74,7 +103,7 @@ const Index = ({navigation}) => {
             // onDidInitialize={}
             options={{
               tx_ref: generateTransactionRef(10),
-              authorization: 'FLWPUBK_TEST-26f8e393c1c61bc58ba3402eb9b69a7f-X',
+              authorization: 'FLWPUBK_TEST-e0bdd242fa4d4357a7a2421159e3bf42-X',
               customer: {
                 email: 'danielnwoke20@gmail.com',
               },

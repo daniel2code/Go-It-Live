@@ -1,17 +1,25 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import * as Animatable from 'react-native-animatable';
-import { primaryColor } from "../../helper/theme"
+import {primaryColor} from '../../helper/theme';
+import * as Keychain from 'react-native-keychain';
 
-const Index = ({ navigation }) => {
+const Index = ({navigation}) => {
+  const handleRoute = async () => {
+    const credentials = await Keychain.getGenericPassword();
 
-  useEffect(()=>{
-     setTimeout(()=>{
-      navigation.navigate("onboard")
-     }, 6000)
+    if (credentials.password) {
+      navigation.navigate('dashboard');
+    } else {
+      navigation.navigate('onboard');
+    }
+  };
 
-
-  }, [])
+  useEffect(() => {
+    setTimeout(() => {
+      handleRoute();
+    }, 6000);
+  }, []);
 
   return (
     <Animatable.View style={styles.container}>
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 110,
     height: 110,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 60,
   },
 
@@ -85,8 +93,8 @@ const styles = StyleSheet.create({
     fontSize: 27,
     paddingHorizontal: 3,
     fontWeight: '700',
-    color: "white",
-    textTransform: "uppercase",
+    color: 'white',
+    textTransform: 'uppercase',
     fontStyle: 'italic',
   },
 
@@ -95,7 +103,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     fontWeight: '700',
     fontStyle: 'italic',
-    color: "white",
-    textTransform: "uppercase",
+    color: 'white',
+    textTransform: 'uppercase',
   },
 });

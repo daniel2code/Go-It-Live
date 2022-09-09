@@ -1,89 +1,124 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, View, Pressable} from 'react-native';
+import React, {useState, useEffect} from 'react';
 
 import tw from 'tailwind-react-native-classnames';
 import OTPTextInput from 'react-native-otp-textinput';
-// import {OTP} from 'react-native-otp-form';
 import {showToast} from '../../../components/toast/index';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Wrapper from '../../../components/onboardWrapper/';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {verifyService} from '../../../api/services/authServices';
-import {BackPressHandler} from '../../../helper/backHandler';
+import Button from '../../../components/button/index';
+import {
+  verifyService,
+  resendSmsService,
+} from '../../../api/services/authServices';
+// import {BackPressHandler} from '../../../helper/backHandler';
 import {deviceInfo} from '../../../helper/deviceInfo';
 import {primaryColor} from '../../../helper/theme';
-
+// import * as Keychain from 'react-native-keychain';
 
 const Index = ({route, navigation}) => {
-  const {phone, pin} = route.params;
+  const {phone} = route.params;
   const [loading, setIsLoading] = useState(false);
+  const [pin, setPin] = useState('');
+  const [resendSms, setResendSms] = useState(false);
+
+  const handleNoResendSmS = () => {
+    showToast('error', 'Please wait after a minute');
+  };
+
+  const handleResendSMS = async () => {
+    setResendSms(true);
+
+    try {
+      await resendSmsService({...deviceInfo, phone: phone});
+    } catch (error) {
+      if (error) {
+        return showToast(
+          'error',
+          error?.response?.data || 'Something went wrong please try again',
+        );
+        // setToastMessage({type: 'error', text: error?.response?.data});
+      } else {
+        showToast(
+          'error',
+          error?.response?.data || 'Something went wrong please try again',
+        );
+      }
+    }
+  };
 
   useEffect(() => {
-    const verfyCode = async () => {
-      setIsLoading(true);
-      try {
-        const response = await verifyService({...deviceInfo, sms: pin});
-        console.log(response.data);
-        showToast('success', 'Verification successful');
-        setIsLoading(false);
+    if (resendSms === true) {
+      setTimeout(() => {
+        setResendSms(false);
+      }, 6000);
+    }
+  }, []);
 
-        setTimeout(() => {
-          navigation.navigate('signup', {
-            phone: phone,
-          });
-        }, 2000);
-      } catch (error) {
-        setIsLoading(false);
-        if (error) {
-          setTimeout(() => {
-            navigation.navigate('onboard');
-          }, 2000);
+  const verfyCode = async () => {
+    setIsLoading(true);
+    try {
+      const response = await verifyService({...deviceInfo, sms: pin});
+      // console.log(response?.data?.createAccount);
+      console.log(response?.data);
+      showToast('success', 'Verification successful');
+      setIsLoading(false);
 
-          return showToast(
-            'error',
-            error?.response?.data ||
-              'Something went wrong please restart process',
-          );
-          // setToastMessage({type: 'error', text: error?.response?.data});
-        } else {
-          setTimeout(() => {
-            navigation.navigate('onboard');
-          }, 2000);
-          showToast(
-            'error',
-            error?.response?.data ||
-              'Something went wrong please restart process',
-          );
-        }
+      // const token = 'accessToken';
+      navigation.navigate('signup', {
+        phone: phone,
+      });
+
+      // if (response?.data?.createAccount === true) {
+      // } else {
+      //   // await Keychain.resetGenericPassword();
+
+      //   // Store the credentials
+      //   await Keychain.setGenericPassword(token, response?.data?.token);
+
+      //   navigation.navigate('dashboard', {
+      //     phone: phone,
+      //   });
+      // }
+    } catch (error) {
+      setIsLoading(false);
+      if (error) {
+        return showToast(
+          'error',
+          error?.response?.data?.msg || 'Something went wrong please try again',
+        );
+        // setToastMessage({type: 'error', text: error?.response?.data});
+      } else {
+        showToast(
+          'error',
+          error?.response?.data?.msg || 'Something went wrong please try again',
+        );
       }
-    };
-
-    BackPressHandler();
-    verfyCode();
-  }, [navigation]);
+    }
+  };
 
   return (
-    <Wrapper hideIcon={true}>
+    <Wrapper hideIcon={false} navigation={navigation}>
       <Spinner
         visible={loading}
         textContent={'Loading...'}
         textStyle={{color: 'white'}}
         overlayColor="rgba(0, 0, 0, 0.7)"
       />
-      <View style={[tw` justify-between h-full`]}>
+      <View style={[tw` justify-between h-full w-full`]}>
         <View>
           <Text style={tw`text-center text-3xl font-bold mt-14 text-white`}>
             What's the code?
           </Text>
 
           <Text style={tw` text-center my-3`}>
-            The 4-digit code SMS sent to:
+            Enter the 4-digit code SMS sent to:
             <Text style={tw`font-bold text-white`}>{phone || ''}</Text>
           </Text>
 
-          <View
-            style={[tw`justify-center items-center relative`, styles.inpBox]}>
-            <View style={[tw`absolute`, styles.overlay]} />
+          <View style={[tw` items-center relative`, styles.inpBox]}>
+            {/* <View style={[tw`absolute`, styles.overlay]} /> */}
             {/* <OTP
               key={Math.random()}
               codeCount={4}
@@ -98,20 +133,26 @@ const Index = ({route, navigation}) => {
               containerStyle={{marginTop: 10, width: '80%', marginRight: '2%'}}
               // tintColor="No"
               offTintColor="Yes"
+              handleTextChange={otpPin => setPin(otpPin)}
+              keyboardType="default"
             />
-            <Text style={tw`my-4`}>
+            {/* <Text style={tw`my-4`}>
               This process is{' '}
               <Text style={[tw`font-bold`, {color: primaryColor}]}>
                 Automatic
               </Text>
-            </Text>
+            </Text> */}
           </View>
+
+          <Button text="Submit" btnStyle={styles.btn} onPress={verfyCode} />
         </View>
 
-        <View style={tw`items-center flex-row`}>
+        <Pressable
+          style={tw`items-center flex-row`}
+          onPress={resendSms === false ? handleResendSMS : handleNoResendSmS}>
           <Text style={tw`text-white font-bold`}>RESEND SMS</Text>
           <Icon name="navigate-next" size={20} style={tw`ml-1`} />
-        </View>
+        </Pressable>
       </View>
     </Wrapper>
   );
@@ -131,11 +172,17 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 
-  overlay: {
-    width: '100%',
-    backgroundColor: 'red',
-    height: 200,
-    zIndex: 2,
-    backgroundColor: 'transparent',
+  btn: {
+    backgroundColor: primaryColor,
+    marginTop: 25,
+    borderRadius: 50,
   },
+
+  // overlay: {
+  //   width: '100%',
+  //   backgroundColor: 'red',
+  //   height: 200,
+  //   zIndex: 2,
+  //   backgroundColor: 'transparent',
+  // },
 });

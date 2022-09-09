@@ -29,7 +29,7 @@ const Index = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="dashboard"
+        initialRouteName="intro"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="dashboard" component={DashboardScreen} />
         <Stack.Screen name="login" component={LoginScreen} />

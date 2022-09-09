@@ -18,16 +18,25 @@ import {BackPressHandler} from '../../../helper/backHandler';
 import {signUpSchema} from '../../../helper/validations';
 import {primaryColor} from '../../../helper/theme';
 import DropDownPicker from 'react-native-dropdown-picker';
+import * as Keychain from 'react-native-keychain';
+
 
 const Index = ({navigation, route}) => {
   const {phone} = route.params;
   const [loading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openGender, setOpenGender] = useState(false);
+  const [genderValue, setGenderValue] = useState(false);
   const [value, setValue] = useState(null);
 
   const [items, setItems] = useState([
     {label: 'Business', value: 'business'},
     {label: 'Student', value: 'student'},
+  ]);
+
+  const [gender, setGender] = useState([
+    {label: 'Male', value: 'Male'},
+    {label: 'Female', value: 'Female'},
   ]);
 
   useEffect(() => {
@@ -41,6 +50,7 @@ const Index = ({navigation, route}) => {
       account_type: '',
       full_name: '',
       username: '',
+      gender: '',
       country: 'Nigeria',
       state: 'Abia',
     },
@@ -52,12 +62,18 @@ const Index = ({navigation, route}) => {
         const response = await registerService({...deviceInfo, ...values});
         console.log(response.data);
         setIsLoading(false);
+
+        const token = 'accessToken';
+        await Keychain.resetGenericPassword();
+
+        // Store the credentials
+        await Keychain.setGenericPassword(token, response?.data?.token);
         navigation.navigate('clipboard');
       } catch (error) {
         setIsLoading(false);
         if (error) {
           console.log(error, error?.response?.msg);
-          navigation.navigate('clipboard');
+          // navigation.navigate('clipboard');
           return showToast(
             'error',
             error?.response?.data || 'Something went wrong please try again',
@@ -97,6 +113,15 @@ const Index = ({navigation, route}) => {
             )}
 
             <TextInput
+              placeholder="User Name"
+              icon1={<Icon1 color="#fff" name="user" size={25} />}
+              onChange={handleChange('username')}
+            />
+            {errors.username && (
+              <Text style={styles.textErr}> {errors && errors.username}</Text>
+            )}
+
+            <TextInput
               placeholder="Email"
               icon1={<Icon color="#fff" name="email" size={25} />}
               onChange={handleChange('email')}
@@ -114,21 +139,33 @@ const Index = ({navigation, route}) => {
               editable={false}
             />
 
-            <TextInput
-              placeholder="User Name"
-              icon1={<Icon1 color="#fff" name="user" size={25} />}
-              onChange={handleChange('username')}
-            />
-            {errors.username && (
-              <Text style={styles.textErr}> {errors && errors.username}</Text>
-            )}
-
             {/* <TextInput
               placeholder="Password"
               icon1={<Icon1 color="#fff" name="lock" size={25} />}
               icon2={<Icon color="#fff" name="remove-red-eye" size={25} />}
               onChange={handleChange('full_name')}
             /> */}
+
+            <DropDownPicker
+              open={openGender}
+              value={genderValue}
+              items={gender}
+              setOpen={setOpenGender}
+              setValue={setGenderValue}
+              setItems={setGender}
+              onChangeValue={handleChange('gender')}
+              containerStyle={styles.selectGenderStyle}
+              style={{
+                backgroundColor: 'transparent',
+                borderColor: 'transparent',
+                color: 'black',
+              }}
+              textStyle={{color: 'black'}}
+            />
+
+            {errors.gender && (
+              <Text style={styles.textErr}> {errors && errors.gender}</Text>
+            )}
 
             <DropDownPicker
               open={open}
@@ -194,6 +231,18 @@ const styles = StyleSheet.create({
     color: 'black',
     position: 'relative',
     zIndex: 2,
+  },
+
+  selectGenderStyle: {
+    width: '100%',
+    height: 45,
+    borderRadius: 50,
+    paddingHorizontal: 13,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    marginTop: 17,
+    color: 'black',
+    position: 'relative',
+    zIndex: 3,
   },
 
   textErr: {

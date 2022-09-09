@@ -8,8 +8,13 @@ import {showToast} from '../../../components/toast/index';
 import {primaryColor} from '../../../helper/theme';
 import Button from '../../../components/button/index';
 import Clipboard from '@react-native-clipboard/clipboard';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {fetchUser} from '../../../api/services/userServices';
+import {useQuery} from 'react-query';
 
 const Index = ({navigation}) => {
+  const {data, isLoading, isError, error} = useQuery('User', fetchUser);
+
   useEffect(() => {
     BackPressHandler();
   }, []);
@@ -21,6 +26,12 @@ const Index = ({navigation}) => {
 
   return (
     <Wrapper hideIcon={true}>
+      <Spinner
+        visible={isLoading}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+        overlayColor="rgba(0, 0, 0, 0.7)"
+      />
       <View style={[tw` justify-between h-full`]}>
         <View>
           <Text style={tw`text-3xl font-bold mt-14 text-white`}>
@@ -41,7 +52,7 @@ const Index = ({navigation}) => {
               tw`justify-between items-center flex-row relative mt-6 pl-3`,
               styles.box,
             ]}>
-            <Text style={tw`text-black`}>256473890298</Text>
+            <Text style={tw`text-black`}>{data?.data?.user?.backup_words}</Text>
             <TouchableOpacity style={styles.clipBtn} onPress={copyToClipboard}>
               <Text style={tw`text-white font-bold`}>Copy </Text>
             </TouchableOpacity>

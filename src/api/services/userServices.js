@@ -23,3 +23,15 @@ export const withdrawFunds = async payload => {
 
   return data;
 };
+
+export const FundWallet = async id => {
+  const {data} = await instance.post(`/fund/${id}`,);
+
+  return data;
+};
+
+export const requestId = async () => {
+  const {data} = await instance.post(`/account/settings/new-backup`,);
+
+  return data;
+};

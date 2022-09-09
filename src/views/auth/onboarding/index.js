@@ -13,7 +13,7 @@ import {showToast} from '../../../components/toast/index';
 import PhoneInput from 'react-native-phone-number-input';
 import {BackPressHandler} from '../../../helper/backHandler';
 import {primaryColor} from '../../../helper/theme';
-import * as Keychain from 'react-native-keychain';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const Index = ({navigation}) => {
   const [loading, setIsLoading] = useState(false);
@@ -30,21 +30,19 @@ const Index = ({navigation}) => {
       setIsLoading(true);
       try {
         const response = await loginInService({...deviceInfo, ...values});
-        console.log(response.data);
-        console.log(response?.data?.pin);
+        console.log(response.data?.hasAccount);
         console.log('This is the real token', response?.data?.token);
-        const token = 'accessToken';
-
-        await Keychain.resetGenericPassword();
-
-        // Store the credentials
-        await Keychain.setGenericPassword(token, response?.data?.token);
-
         setIsLoading(false);
-        navigation.navigate('otp', {
-          phone: values.phone,
-          pin: response?.data?.pin,
-        });
+
+        if (response.data?.hasAccount === true) {
+          navigation.navigate('login', {
+            phone: values.phone,
+          });
+        } else {
+          navigation.navigate('otp', {
+            phone: values.phone,
+          });
+        }
       } catch (error) {
         setIsLoading(false);
         if (error) {
@@ -74,7 +72,7 @@ const Index = ({navigation}) => {
           overlayColor="rgba(0, 0, 0, 0.7)"
         />
         <View style={[tw` justify-between h-full`]}>
-          <View>
+          <View style={[tw`mt-0`]}>
             <Text
               style={tw`text-center text-3xl mb-10 font-bold mt-14 text-white`}>
               What's your number?
@@ -108,6 +106,7 @@ const Index = ({navigation}) => {
                 borderRadius: 30,
                 width: '100%',
                 height: 62,
+                // marginVertical: 40,
               }}
               textContainerStyle={{
                 backgroundColor: 'transparent',
@@ -124,6 +123,18 @@ const Index = ({navigation}) => {
               btnStyle={styles.btn}
               onPress={handleSubmit}
             />
+
+            <View style={[tw`flex-row items-center`]}>
+              <Text
+                style={tw`my-4 text-white pl-1 justify-center items-center`}>
+                Have an account?
+              </Text>
+              <Pressable onPress={() => navigation.navigate('login')}>
+                <Text style={[tw`font-bold ml-2`, {color: primaryColor}]}>
+                  Login
+                </Text>
+              </Pressable>
+            </View>
           </View>
 
           <Text style={tw`italic text-white`}>

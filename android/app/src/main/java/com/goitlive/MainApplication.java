@@ -13,6 +13,7 @@ import com.goitlive.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.microsoft.codepush.react.CodePush;
+// import com.react.SmsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -63,6 +64,16 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
+
+
+//     @Override
+//         protected List<ReactPackage> getPackages() {
+//         return Arrays.<ReactPackage>asList(
+//          new MainReactPackage(),
+//            new SmsPackage()
+//     // (...)
+//   );
+// }
 
   /**
    * Loads Flipper in React Native templates. Call this in the onCreate method with something like
