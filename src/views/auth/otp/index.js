@@ -117,31 +117,20 @@ const Index = ({route, navigation}) => {
             <Text style={tw`font-bold text-white`}>{phone || ''}</Text>
           </Text>
 
-          <View style={[tw` items-center relative`, styles.inpBox]}>
-            {/* <View style={[tw`absolute`, styles.overlay]} /> */}
-            {/* <OTP
-              key={Math.random()}
-              codeCount={4}
-              containerStyle={{marginTop: 10, width: '80%'}}
-              otpStyles={[tw`rounded`, styles.inp]}
-              onTyping={()=>setOtp('1234')}
-            /> */}
-
-            <OTPTextInput
-              defaultValue={pin}
-              textInputStyle={[tw`rounded`, styles.inp]}
-              containerStyle={{marginTop: 10, width: '80%', marginRight: '2%'}}
-              // tintColor="No"
-              offTintColor="Yes"
-              handleTextChange={otpPin => setPin(otpPin)}
-              keyboardType="default"
-            />
-            {/* <Text style={tw`my-4`}>
-              This process is{' '}
-              <Text style={[tw`font-bold`, {color: primaryColor}]}>
-                Automatic
-              </Text>
-            </Text> */}
+          <View style={[tw`w-full items-center`]}>
+            <View style={[tw` items-center`, styles.inpBox]}>
+              <OTPTextInput
+                defaultValue={pin}
+                textInputStyle={[tw`rounded`, styles.inp]}
+                containerStyle={{
+                  marginTop: 10,
+                }}
+                // tintColor="No"
+                offTintColor="Yes"
+                handleTextChange={otpPin => setPin(otpPin)}
+                keyboardType="default"
+              />
+            </View>
           </View>
 
           <Button text="Submit" btnStyle={styles.btn} onPress={verfyCode} />
@@ -150,8 +139,11 @@ const Index = ({route, navigation}) => {
         <Pressable
           style={tw`items-center flex-row`}
           onPress={resendSms === false ? handleResendSMS : handleNoResendSmS}>
-          <Text style={tw`text-white font-bold`}>RESEND SMS</Text>
-          <Icon name="navigate-next" size={20} style={tw`ml-1`} />
+          <Text
+            style={[tw`text-white font-bold`, {opacity: resendSms ? 0.3 : 1}]}>
+            RESEND SMS
+          </Text>
+          <Icon name="navigate-next" size={20} style={[tw`ml-1`, {opacity: resendSms ? 0.3 : 1}]} />
         </Pressable>
       </View>
     </Wrapper>
@@ -162,7 +154,7 @@ export default Index;
 
 const styles = StyleSheet.create({
   inpBox: {
-    width: '100%',
+    width: '80%',
   },
 
   inp: {

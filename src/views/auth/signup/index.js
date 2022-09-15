@@ -76,13 +76,13 @@ const Index = ({navigation, route}) => {
           // navigation.navigate('clipboard');
           return showToast(
             'error',
-            error?.response?.data || 'Something went wrong please try again',
+            error?.response?.data?.msg || 'Something went wrong please try again',
           );
           // setToastMessage({type: 'error', text: error?.response?.data});
         } else {
           showToast(
             'error',
-            error?.response?.data || 'Something went wrong please try again',
+            error?.response?.data?.msg || 'Something went wrong please try again',
           );
         }
       }
@@ -196,10 +196,10 @@ const Index = ({navigation, route}) => {
               onPress={handleSubmit}
             />
 
-            <Text style={tw`my-4 text-white pl-1`}>
+            {/* <Text style={tw`my-4 text-white pl-1`}>
               Have an account?{' '}
               <Text style={[tw`font-bold`, {color: primaryColor}]}>Login</Text>
-            </Text>
+            </Text> */}
           </View>
         </View>
 

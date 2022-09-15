@@ -7,23 +7,19 @@ import Icon1 from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 import Icon3 from 'react-native-vector-icons/Feather';
 
-const Index = ({navigation, openModal}) => {
+const Index = ({navigation, openModal, video}) => {
   return (
     <View style={styles.container}>
-      {/* <Video
-        source={require('../../assets/bg.mp4')}
-        resizeMode="cover"
-        // repeat={true}
-        playInBackground={false}
-        style={styles.bgImg}
-      /> */}
-      <View style={[tw`p-3 flex-1 absolute w-full h-full`]}>
+      <Video
+        // source={{uri: `http://192.168.176.94:4000/${video}`}}
+        
+      />
+      {/* <View style={[tw`p-3 flex-1 absolute w-full h-full`]}>
         <View style={tw`w-full flex-row justify-between items-start`}>
-          <Image
-            source={require('../../assets/rbg.jpg')}
-            style={[tw`w-9 h-9`, styles.pImg]}
-          />
-          <View style={tw`flex-1 px-3`}>
+
+    
+
+          <View style={tw`flex-1 px-3`}>``
             <Text style={tw`text-white font-bold`}>Daniel Emerald</Text>
             <Text
               style={[tw`mt-0 text-xs text-white font-bold`, {color: 'white'}]}>
@@ -32,17 +28,12 @@ const Index = ({navigation, openModal}) => {
           </View>
 
           <TouchableOpacity onPress={openModal} style={tw`w-4`}>
-            <Icon3
-              size={18}
-              name="more-vertical"
-              color="white"
-              
-            />
+            <Icon3 size={18} name="more-vertical" color="white" />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
 
-      <View
+      {/* <View
         style={[
           tw`px-3 py-1 flex-row items-center justify-between`,
           {height: '15%'},
@@ -60,7 +51,7 @@ const Index = ({navigation, openModal}) => {
         <TouchableOpacity onPress={() => navigation.navigate('PostComment')}>
           <Icon3 name="send" size={22} color="white" style={tw`ml-3`} />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

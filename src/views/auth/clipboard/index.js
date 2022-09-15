@@ -20,7 +20,7 @@ const Index = ({navigation}) => {
   }, []);
 
   const copyToClipboard = () => {
-    Clipboard.setString('256473890298');
+    Clipboard.setString(data?.data?.user?.backup_words);
     showToast('success', 'Text copied to clipboard');
   };
 

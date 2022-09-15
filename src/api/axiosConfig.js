@@ -2,8 +2,8 @@ import axios from 'axios';
 import * as Keychain from 'react-native-keychain';
 
 export const instance = axios.create({
-  baseURL: 'https://go-it-live.herokuapp.com/api/v1/user',
-  // baseURL: 'http://192.168.176.94:4000/api/v1/user',
+  // baseURL: 'https://go-it-live.herokuapp.com/api/v1/user',
+  baseURL: 'http://192.168.176.94:4000/api/v1/user',
   headers: {
     'Content-Type': 'application/json',
   },

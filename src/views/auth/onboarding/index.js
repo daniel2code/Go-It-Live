@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React, {useState, useRef, useEffect} from 'react';
 import tw from 'tailwind-react-native-classnames';
 
@@ -13,7 +13,6 @@ import {showToast} from '../../../components/toast/index';
 import PhoneInput from 'react-native-phone-number-input';
 import {BackPressHandler} from '../../../helper/backHandler';
 import {primaryColor} from '../../../helper/theme';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const Index = ({navigation}) => {
   const [loading, setIsLoading] = useState(false);
@@ -23,10 +22,14 @@ const Index = ({navigation}) => {
     BackPressHandler();
   }, []);
 
-  const {handleChange, handleSubmit, values, errors} = useFormik({
+  const {handleChange, handleSubmit} = useFormik({
     initialValues: {phone: ''},
     validationSchema: introSchema,
     onSubmit: async values => {
+      // console.log(values.phone)
+
+      
+
       setIsLoading(true);
       try {
         const response = await loginInService({...deviceInfo, ...values});
@@ -78,22 +81,6 @@ const Index = ({navigation}) => {
               What's your number?
             </Text>
 
-            {/* <View
-              style={[
-                tw`w-full h-11 items-center flex-row mt-10`,
-                styles.textInpBox,
-              ]}> */}
-            {/* <View style={tw`w-12`}>
-                <Text>+234</Text>
-              </View> */}
-            {/* <TextInput
-                keyboardType="numeric"
-                placeholder="Phone number"
-                keyboardAppearance="dark"
-                style={[tw`py-0 pl-6`, styles.inp]}
-                onChangeText={handleChange('phone')}
-              /> */}
-
             <PhoneInput
               ref={phoneInput}
               // defaultValue={value}
@@ -123,18 +110,6 @@ const Index = ({navigation}) => {
               btnStyle={styles.btn}
               onPress={handleSubmit}
             />
-
-            <View style={[tw`flex-row items-center`]}>
-              <Text
-                style={tw`my-4 text-white pl-1 justify-center items-center`}>
-                Have an account?
-              </Text>
-              <Pressable onPress={() => navigation.navigate('login')}>
-                <Text style={[tw`font-bold ml-2`, {color: primaryColor}]}>
-                  Login
-                </Text>
-              </Pressable>
-            </View>
           </View>
 
           <Text style={tw`italic text-white`}>

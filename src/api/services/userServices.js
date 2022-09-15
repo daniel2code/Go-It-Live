@@ -35,3 +35,9 @@ export const requestId = async () => {
 
   return data;
 };
+
+export const getPrivateVideos = async () => {
+  const {data} = await instance.get(`/private-live`,);
+
+  return data;
+};

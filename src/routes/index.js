@@ -20,6 +20,8 @@ import CommentScreen from "../views/main/publicLife/comments/index"
 import PrivateVideoCall from "../views/main/profile/privateVideoCall/index"
 import AnswerCallScreen from "../views/main/callScreens/answerScreen"
 import CallingScreen from '../views/main/callScreens/callingScreen';
+import UploadVideoScreen from '../views/main/privateLife/uploadVideo'
+import TermsScreen from '../views/main/privateLife/terms'
 
 import DashboardScreen from '../views/main';
 
@@ -50,6 +52,8 @@ const Index = () => {
         <Stack.Screen name='privateCall' component={PrivateVideoCall} />
         <Stack.Screen name='answerCall' component={AnswerCallScreen} />
         <Stack.Screen name='calling' component={CallingScreen} />
+        <Stack.Screen name='upload' component={UploadVideoScreen} />
+        <Stack.Screen name='terms' component={TermsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

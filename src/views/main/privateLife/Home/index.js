@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import tw from 'tailwind-react-native-classnames';
 import PostViewer from '../../../../components/postView/index';
@@ -17,11 +17,33 @@ import Modal from '../../../../components/modal/index';
 import ReportModalContent from '../modals/reportModal';
 import MenuModalContent from '../modals/menuModal';
 import CallModalContent from '../modals/callModal';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {
+  fetchUser,
+  getPrivateVideos,
+} from '../../../../api/services/userServices';
+import {useQuery} from 'react-query';
 
 const Index = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [reportModal, setReportModal] = useState(false);
   const [callModal, setCallModal] = useState(false);
+  // const {data, isLoading} = useQuery('User', fetchUser);
+  const {data, isLoading} = useQuery('PrivateVideos', getPrivateVideos);
+
+  console.log('===============+++++------', data?.data?.result);
+
+  // useEffect(() => {
+  //   const checkUser = () => {
+  //     if (data?.data?.user?.private_life === false) {
+  //       navigation.navigate('terms');
+  //     } else {
+  //       return null;
+  //     }
+  //   };
+
+  //   checkUser();
+  // }, [data]);
 
   const handleOpenModal = () => {
     setModalVisible(!modalVisible);
@@ -75,28 +97,32 @@ const Index = ({navigation}) => {
     setCallModal(!callModal);
   };
 
-  const List = [
-    {name: 'video', url: '../../../../assets/bg.mp4'},
-    {name: 'audio', url: '../../../../assets/bg.mp4'},
-    {name: 'image', url: '../../../../assets/bg.mp4'},
-    {name: 'img', url: '../../../../assets/bg.mp4'},
-    {name: 'vid', url: '../../../../assets/bg.mp4'},
-    {name: 'view', url: '../../../../assets/bg.mp4'},
-    {name: 'show', url: '../../../../assets/bg.mp4'},
-    {name: 'live', url: '../../../../assets/bg.mp4'},
-  ];
-
   const windowHeight = Dimensions.get('window').height;
 
   return (
     <View style={{flex: 1}}>
+      <Spinner
+        visible={
+          isLoading
+          // ||
+          // loading
+        }
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+        overlayColor="rgba(0, 0, 0, 0.7)"
+      />
       <FlatList
         numColumns={1}
-        data={List}
+        data={data?.data?.result}
         renderItem={({item}) => {
+
           return (
             <View style={[tw`w-full mt-2`]}>
-              <PostViewer navigation={navigation} openModal={handleOpenModal} />
+              <PostViewer
+                navigation={navigation}
+                openModal={handleOpenModal}
+                video={item?.video}
+              />
               {/* <Text style={{color: "black"}} >testing=======</Text> */}
             </View>
           );

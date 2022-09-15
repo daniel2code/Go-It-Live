@@ -17,6 +17,7 @@ import {requestId} from '../../../../api/services/userServices';
 import {showToast} from '../../../../components/toast';
 import Spinner from 'react-native-loading-spinner-overlay';
 import * as Keychain from 'react-native-keychain';
+import {primaryColor} from '../../../../helper/theme';
 
 const Index = ({navigation}) => {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -27,7 +28,7 @@ const Index = ({navigation}) => {
     try {
       const response = await requestId();
       console.log(response);
-      showToast('success', 'Successfully changed backup code');
+      showToast('success', 'Successfully changed your backup code');
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -113,7 +114,12 @@ const Index = ({navigation}) => {
               </Text>
             </View>
 
-            <Switch value={true} />
+            <Switch
+              value={true}
+              trackColor={{false: '#gray', true: 'gray'}}
+              // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              thumbColor={primaryColor}
+            />
           </View>
 
           <View style={[tw`flex-row justify-between items-center py-4`]}>
@@ -126,7 +132,12 @@ const Index = ({navigation}) => {
               </Text>
             </TouchableOpacity>
 
-            <Switch value={true} />
+            <Switch
+              value={true}
+              trackColor={{false: '#gray', true: 'gray'}}
+              // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              thumbColor={primaryColor}
+            />
           </View>
 
           <View style={[tw`flex-row justify-between items-center py-4`]}>
@@ -137,7 +148,12 @@ const Index = ({navigation}) => {
               </Text>
             </View>
 
-            <Switch value={true} />
+            <Switch
+              value={true}
+              trackColor={{false: '#gray', true: 'gray'}}
+              // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              thumbColor={primaryColor}
+            />
           </View>
 
           <View style={[tw`flex-row justify-between items-center py-4`]}>
@@ -148,7 +164,12 @@ const Index = ({navigation}) => {
               </Text>
             </View>
 
-            <Switch value={true} />
+            <Switch
+              value={true}
+              trackColor={{false: '#gray', true: 'gray'}}
+              // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              thumbColor={primaryColor}
+            />
           </View>
 
           <TouchableOpacity
@@ -167,7 +188,11 @@ const Index = ({navigation}) => {
           {/* <Text style={[tw`font-bold text-black`, {fontSize: 16}]}>Logins</Text> */}
 
           <TouchableOpacity onPress={confirmLogout}>
-            <Text style={[tw`mt-5`, {color: 'gray', fontSize: 18}]}>
+            <Text
+              style={[
+                tw`mt-5`,
+                {color: primaryColor, fontSize: 18, fontWeight: '700'},
+              ]}>
               Logout
             </Text>
           </TouchableOpacity>
